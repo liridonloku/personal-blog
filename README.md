@@ -1,2 +1,3 @@
-# personal-blog
-Personal blog front end
+# Personal Blog
+
+This is the Front End code for my personal blog.
