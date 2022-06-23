@@ -8,26 +8,21 @@ import dompurify from "dompurify";
 import defaultImage from "../assets/images.png";
 import Comments from "./Comments";
 
-interface Props {}
+interface Props {
+  posts: Post[];
+}
 
-const SinglePost: React.FC<Props> = () => {
+const SinglePost: React.FC<Props> = ({ posts }) => {
   const [post, setpost] = useState<null | Post>();
   const { id } = useParams();
 
   useEffect(() => {
-    const getPost = async () => {
-      try {
-        const response = await axios({
-          method: "get",
-          url: `https://stark-bastion-85808.herokuapp.com/api/posts/${id}`,
-        });
-        setpost(response.data);
-      } catch (err) {
-        console.log(err);
-      }
+    const getPost = () => {
+      const newPost = posts.find((post) => post._id.toString() === id);
+      setpost(newPost);
     };
     getPost();
-  }, [id]);
+  }, [id, posts]);
 
   const htmlFrom = (htmlString: string) => {
     const cleanHtmlString = dompurify.sanitize(htmlString, {
@@ -42,20 +37,15 @@ const SinglePost: React.FC<Props> = () => {
       <Header />
       {post && (
         <div className="container-sm mb-4">
+          <h1 className="text-center mb-3">{post.title}</h1>
+          <p className="text-secondary mb-1">
+            {new Date(post.date).toDateString()}
+          </p>
           <div className="post-image d-flex justify-content-center mb-3">
             <img src={post.poster || defaultImage} alt="" />
           </div>
-          <h1 className="text-center mb-3">{post.title}</h1>
           {htmlFrom(post.article)}
-          <p className="text-center">
-            Status:{" "}
-            {post.published ? (
-              <span className="text-success fw-bold">Published</span>
-            ) : (
-              <span className="text-danger fw-bold">NOT Published</span>
-            )}
-          </p>
-          <hr />
+          <hr className="mt-5" />
           <Comments post={post} />
         </div>
       )}

@@ -40,7 +40,7 @@ const App: React.FC<Props> = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home posts={posts} />} />
-        <Route path="/:id" element={<SinglePost />} />
+        <Route path="/:id" element={<SinglePost posts={posts} />} />
       </Routes>
     </BrowserRouter>
   );
