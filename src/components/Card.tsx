@@ -11,7 +11,7 @@ const Card: React.FC<Props> = ({ post }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="col-xl-4">
+    <div className="col-xl-3">
       <div className="card m-3 shadow-sm">
         <img
           src={post.poster ? post.poster : defaultImage}
