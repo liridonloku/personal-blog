@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Post } from "../App";
 import parse from "html-react-parser";

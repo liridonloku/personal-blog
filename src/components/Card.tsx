@@ -1,13 +1,15 @@
 import React from "react";
 import { Post } from "../App";
 import defaultImage from "../assets/images.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Props {
   post: Post;
 }
 
 const Card: React.FC<Props> = ({ post }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="col-xl-4">
       <div className="card m-3 shadow-sm">
@@ -21,6 +23,9 @@ const Card: React.FC<Props> = ({ post }) => {
           }}
           className="card-img-top"
           alt="Post"
+          onClick={() => {
+            navigate(`./${post._id}`);
+          }}
         />
         <div className="card-body">
           <h5 className="card-title">
