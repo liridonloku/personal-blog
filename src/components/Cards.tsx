@@ -14,7 +14,21 @@ const Cards: React.FC<Props> = ({ posts }) => {
     <main className="flex-grow-1">
       <h1 className="text-center">Posts</h1>
       <div className="container-fluid d-flex flex-wrap justify-content-center">
-        {renderCards()}
+        {posts.length > 0 ? (
+          renderCards()
+        ) : (
+          <div className="text-center pt-5">
+            <div className="spinner-grow text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <div className="spinner-grow text-secondary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <div className="spinner-grow text-success" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
