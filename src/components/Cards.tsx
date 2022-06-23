@@ -1,47 +1,12 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { User } from "../App";
+import React from "react";
+import { Post } from "../App";
 import Card from "./Card";
 
 interface Props {
-  user: null | User;
+  posts: Post[];
 }
 
-interface Author {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-
-export interface Post {
-  _id: string;
-  title: string;
-  poster: string;
-  article: string;
-  published: boolean;
-  date: Date;
-  author: Author;
-}
-
-const Cards: React.FC<Props> = ({ user }) => {
-  const [posts, setposts] = useState<Array<Post>>([]);
-
-  useEffect(() => {
-    const getPosts = async () => {
-      const response = await axios({
-        method: "get",
-        url: "https://stark-bastion-85808.herokuapp.com/api/posts/all",
-        headers: {
-          Authorization: `${user?.token}`,
-        },
-      });
-      setposts(response.data);
-    };
-    if (user?.token) {
-      getPosts();
-    }
-  }, [user?.token]);
-
+const Cards: React.FC<Props> = ({ posts }) => {
   const renderCards = () => {
     return posts.map((post) => <Card key={post._id} post={post} />);
   };

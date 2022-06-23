@@ -1,13 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { User } from "../App";
-import { Post } from "./Cards";
+import { Post } from "../App";
 import { useForm } from "react-hook-form";
 import SingleComment from "./SingleComment";
 
 interface Props {
   post: Post;
-  user: null | User;
 }
 
 export interface Comment {
@@ -18,7 +16,7 @@ export interface Comment {
   date: Date;
 }
 
-const Comments: React.FC<Props> = ({ post, user }) => {
+const Comments: React.FC<Props> = ({ post }) => {
   const { register, handleSubmit, reset } = useForm();
   const [comments, setcomments] = useState<Comment[]>([]);
 
@@ -48,26 +46,6 @@ const Comments: React.FC<Props> = ({ post, user }) => {
         },
       });
       reset();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const deleteComment = async (id: string) => {
-    try {
-      if (user?.token) {
-        const response = await axios({
-          method: "delete",
-          url: `https://stark-bastion-85808.herokuapp.com/api/posts/${post._id}/comments/${id}`,
-          headers: {
-            Authorization: user?.token,
-          },
-        });
-        console.log(response.data);
-        setcomments(
-          comments.filter((comment) => comment._id.toString() !== id)
-        );
-      }
     } catch (err) {
       console.error(err);
     }
@@ -108,11 +86,7 @@ const Comments: React.FC<Props> = ({ post, user }) => {
         </div>
       </form>
       {comments.map((comment) => (
-        <SingleComment
-          key={comment._id}
-          comment={comment}
-          deleteComment={deleteComment}
-        />
+        <SingleComment key={comment._id} comment={comment} />
       ))}
     </>
   );

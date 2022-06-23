@@ -1,5 +1,5 @@
 import React from "react";
-import { Post } from "./Cards";
+import { Post } from "../App";
 import defaultImage from "../assets/images.png";
 import { Link } from "react-router-dom";
 
